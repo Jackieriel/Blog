@@ -21,6 +21,7 @@ class PostController extends Controller
         return view('pages.admin.posts.index')->with('posts', $posts);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -127,4 +128,11 @@ class PostController extends Controller
         return redirect()->back();
 
     }
+
+    public function trashed() 
+    {
+        $posts = Post::onlyTrashed();
+        return view('pages.admin.posts.index')->with('posts', $posts);
+    }
+
 }

@@ -1,32 +1,32 @@
 @extends('layouts.app')
 
 @section('title')
-    Categories
+    Tags
 @endsection
 
 @section('content')
     <table class="table table-hover">
         <thead>
-            <th>Category Name</th>
+            <th>Tag Name</th>
             <th>Edit</th>
             <th>Delete</th>
         </thead>
 
         <tbody>
-            @if ($categories->count() > 0)
-                @foreach ($categories as $category)
+            @if ($tags->count() > 0)
+                @foreach ($tags as $tag)
                     <tr>
-                        <td>{{ $category->name }}</td>
-                        <td><a href="{{ route('category.edit', $category->id) }}" class="btn btn-xs btn-info"><span
+                        <td>{{ $tag->tag }}</td>
+                        <td><a href="{{ route('tag.edit', $tag->id) }}" class="btn btn-xs btn-info"><span
                                     class="fa fa-pencil text-white"></span></a></td>
-                        <td><a href="{{ route('category.delete', $category->id) }}"
-                                onclick="return confirm('Do you really want to delete this category?')"
+                        <td><a href="{{ route('tag.delete', $tag->id) }}"
+                                onclick="return confirm('Do you really want to delete this tag?')"
                                 class="btn btn-xs btn-danger"><span class="fa fa-trash text-white"></span></a></td>
                     </tr>
                 @endforeach
             @else
                 <tr>
-                    <td colspan="5" class="text-center">No categories yet</td>
+                    <td colspan="5" class="text-center">No tags yet</td>
                 </tr>
             @endif
         </tbody>

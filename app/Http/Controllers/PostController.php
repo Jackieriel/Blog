@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -31,12 +32,13 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         if ($categories->count() == 0) {
             Session::flash('info', 'You must have a categories before attempting to create a post.');
         }
 
-        return view('pages.admin.posts.create')->with('categories', $categories);
+        return view('pages.admin.posts.create')->with('categories', $categories)->with('tags', $tags);
     }
 
     /**
@@ -51,7 +53,8 @@ class PostController extends Controller
             'title' => 'required',
             'featured' => 'required|image',
             'content' => 'required|min:20',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags' => 'required'
         ]);
 
         $featured = $request->featured;
@@ -70,6 +73,11 @@ class PostController extends Controller
             'category_id' => $request->category_id,
             'slug' => Str::slug($request->title)
         ]);
+
+        // post to pivot table
+        $post->tags()->attach($request->tags);
+
+
 
         // Set session flash message
         Session::flash('success', 'Post created successfully!');
@@ -98,8 +106,11 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('pages.admin.posts.update')->with('post', $post)->with('categories', $categories);
+        return view('pages.admin.posts.update')->with('post', $post)
+            ->with('categories', $categories)
+            ->with('tags', $tags);
     }
 
     /**
@@ -122,15 +133,13 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         // check if user upload image
-        if($request->hasFile('featured'))
-        {
+        if ($request->hasFile('featured')) {
             $featured = $request->featured;
-            $featured_new_name = time().$featured->getClientOriginalName();
+            $featured_new_name = time() . $featured->getClientOriginalName();
 
             $featured->move('uploads/posts', $featured_new_name);
 
-            $post->featured = 'uploads/posts/'.$featured_new_name;
-
+            $post->featured = 'uploads/posts/' . $featured_new_name;
         }
 
         $post->title = $request->title;
@@ -140,12 +149,14 @@ class PostController extends Controller
         // Save post
         $post->save();
 
+        // to save the tags
+        $post->tags()->sync($request->tags);
+
         // Flash message
         Session::flash('success', 'Post updated successfully!');
 
         // redirect
         return redirect()->route('posts');
-        
     }
 
     /**

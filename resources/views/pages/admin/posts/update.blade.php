@@ -20,7 +20,7 @@
 
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" name="title" value="{{$post->title}}" class="form-control" required>
+                <input type="text" name="title" value="{{ $post->title }}" class="form-control" required>
             </div>
 
             <div class="form-group">
@@ -32,21 +32,46 @@
                 <label for="category">Category</label>
                 <select name="category_id" id="category" class="form-control">
                     @foreach ($categories as $category)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
+                        <option value="{{ $category->id }}"
+                            @if ($post->category->id == $category->id) 
+                                selected
+                            @endif
+                        >{{ $category->name }}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="content">Content</label>
-                <textarea name="content" id="content" cols="5" rows="5" class="form-control" required>{{$post->content}}</textarea>
-            </div>
+                <label for="tag">Select tag</label>
+                @foreach ($tags as $tag)
+                    <div class="checkbox">
+                        <label for="tags">
+                            <input type="checkbox" name="tags[]" value="{{ $tag->id }} " 
+                            {{-- Check if tag is slected --}}
+                            @foreach ($post->tags as $ta)
+                                @if ($tag->id == $ta->id)
+                                    checked
+                                @endif
 
-            <div class="form-group text-right">
-                <button class="btn btn-primary" type="submit">Update</button>
-            </div>
+                            @endforeach
 
-        </form>
+                            > {{ $tag->tag }}
+                        </label>
+                    </div>
+                @endforeach
+    </div>
+
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea name="content" id="content" cols="5" rows="5" class="form-control"
+            required>{{ $post->content }}</textarea>
+    </div>
+
+    <div class="form-group text-right">
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+
+    </form>
 
     </div>
 

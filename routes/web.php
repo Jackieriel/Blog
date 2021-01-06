@@ -53,4 +53,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 
     Route::get('/users', 'UsersController@index')->name('users');
+    Route::get('/users/create', 'UsersController@create')->name('user.create');
+    Route::post('/users/save', 'UsersController@store')->name('user.save');
+
+    Route::get('/users/admin/{id}', 'UsersController@admin')->name('user.admin');
+    Route::get('/users/not-admin/{id}', 'UsersController@not_admin')->name('user.not-admin');
 });

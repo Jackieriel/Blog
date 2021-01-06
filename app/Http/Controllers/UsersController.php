@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Models\Profile;
+use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
@@ -17,7 +19,6 @@ class UsersController extends Controller
         $users = User::all();
 
         return view('pages.admin.users.index')->with('users', $users);
-        
     }
 
     /**
@@ -27,7 +28,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.users.create');
     }
 
     /**
@@ -38,7 +39,27 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt('password')
+        ]);
+
+        // Create a profile for the user
+        $profile = Profile::create([
+            'user_id' => $user->id,
+            'avatar' => 'uploads/avatar/avater.jpg'
+        ]);
+
+        // Set session flash message
+        Session::flash('success', 'User created successfully!');
+
+        return redirect()->route('users');
     }
 
     /**
@@ -84,5 +105,33 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function admin($id)
+    {
+        $user = User::findOrFail($id) ;
+
+        $user->admin = 1;
+
+        $user->save();
+
+         // Set session flash message
+         Session::flash('success', 'Successfully changed user permission!');
+
+         return redirect()->back();
+    }
+    
+    public function not_admin($id)
+    {
+        $user = User::findOrFail($id) ;
+
+        $user->admin = 0;
+
+        $user->save();
+
+         // Set session flash message
+         Session::flash('success', 'Successfully changed user permission!');
+
+         return redirect()->back();
     }
 }

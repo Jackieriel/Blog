@@ -35,7 +35,12 @@
                                     <a href="{{route('user.admin', $user->id)}}" class="btn btn-xs btn-success">Make admin</a>
                                 @endif
                             </td>
-                            <td>Delete</td>
+                            {{-- check to make sure is not the particular user --}}
+                            <td>
+                                @if (Auth::id() !== $user->id)
+                                    <a href="{{route('user.delete', $user->id)}}" class="btn btn-xs btn-danger">Delete user</a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 @else

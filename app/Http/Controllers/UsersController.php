@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
+    // inject the admin middleware
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -104,7 +112,18 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        // delete profile
+        $user->profile->delete();
+
+        // delete user
+        $user->delete();
+
+        // Set session flash message
+        Session::flash('success', 'User deleted perminently!');
+
+        return redirect()->back();
     }
 
     public function admin($id)

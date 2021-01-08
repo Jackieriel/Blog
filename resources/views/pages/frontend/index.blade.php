@@ -1,0 +1,95 @@
+@extends('layouts.front')
+
+@section('title')
+    Home
+@endsection
+
+@section('content')
+
+    <div class="row">
+        <div class=" col-md-12 card mx-auto">
+            <div class="post-thumb">
+                <img class="card-img-top" src="{{ $first_post->featured }}" alt="{{ $first_post->title }}">
+            </div>
+            <div class="card-body">
+                <h2 class="card-title">{{ $first_post->title }}</h2>
+                <p class="card-text">
+                    {!! Str::substr($first_post->content, 0, 150) !!}...
+                </p>
+                <a href="#" class="btn btn-primary">Read More &rarr;</a>
+            </div>
+            <div class="card-footer text-muted">
+                Posted on {{ $first_post->created_at->diffForHumans() }} |
+                <a href="#">{{ $first_post->category->name }}</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page Content -->
+    <h2 class="my-4">
+        {{-- <small>Recent Post</small> --}}
+    </h2>
+
+    <!-- Blog Post -->
+    <div class="row">
+        @foreach ($allPosts as $post)
+
+            <div class="col-md-5 card mx-auto mb-4">
+                <div class="post-thumb">
+                    <img class="card-img-top" src="{{ $post->featured }}" alt="{{ $first_post->title }}">
+                </div>
+                <div class="card-body post-title">
+                    <h1 class="card-title">{{ $post->title }}</h1>
+                    <p class="card-text">
+                        {!! Str::substr($post->content, 0, 150) !!}...
+                    </p>
+                    <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                    Posted on {{ $post->created_at->toFormattedDateString() }} |
+                    <a href="#">{{ $post->category->name }}</a>
+                </div>
+            </div>
+
+        @endforeach
+
+    </div>
+    {{-- {{ $allPosts->appends(Request::all())->links() }} --}}
+
+
+
+
+    <!-- See more -->
+    <div class="pagination justify-content-center mb-4">
+        
+    <a class="page-link" href="{{route('posts')}}"> See more &rarr;</a>
+    </div>
+
+
+
+    {{-- sidebar enter here --}}
+
+
+@endsection
+{{--
+@section('recent_post')
+<div class="row">
+    <div class=" col-md-8 card mx-auto">
+        <div class="post-thumb">
+            <img class="card-img-top" src="{{ $first_post->featured }}" alt="{{ $first_post->title }}">
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">{{ $first_post->title }}</h2>
+            <p class="card-text">
+                {!! Str::substr($first_post->content, 0, 150) !!}...
+            </p>
+            <a href="#" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+            Posted on {{ $first_post->created_at->diffForHumans() }} |
+            <a href="#">{{ $first_post->category->name }}</a>
+        </div>
+    </div>
+</div>
+@endsection --}}

@@ -1,0 +1,20 @@
+body {
+    padding-top: 56px;
+  }
+
+  
+.post-thumb {
+    position: relative;
+    margin-bottom: 60px;
+    box-shadow: 24px 50px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    height: 20rem;
+}
+
+.post-thumb img{
+    height: 100%;
+}
+
+.post-title h1{
+    font-size: 1.25rem !important;
+}

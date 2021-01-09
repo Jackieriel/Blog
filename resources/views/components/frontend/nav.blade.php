@@ -1,7 +1,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container">
-          <a class="navbar-brand" href="{{ route('home') }}">
+          <a class="navbar-brand" href="{{ route('index') }}">
               {{ App\Models\Setting::first()->site_name }}
           </a>
 
@@ -13,7 +13,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
-                      <a class="nav-link" href="{{ route('home') }}">Home
+                      <a class="nav-link" href="{{ route('index') }}">Home
                           <span class="sr-only">(current)</span>
                       </a>
                   </li>

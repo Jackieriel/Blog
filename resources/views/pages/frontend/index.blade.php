@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title')
+@section('page-name')
     Home
 @endsection
 
@@ -14,9 +14,9 @@
             <div class="card-body">
                 <h2 class="card-title">{{ $first_post->title }}</h2>
                 <p class="card-text">
-                    {!! Str::substr($first_post->content, 0, 150) !!}...
+                    {!! Str::substr($first_post->content, 0, 150) !!}
                 </p>
-                <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                <a href="{{route('post.single', ['slug' => $first_post->slug])}}" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
                 Posted on {{ $first_post->created_at->diffForHumans() }} |
@@ -42,9 +42,9 @@
                 <div class="card-body post-title">
                     <h1 class="card-title">{{ $post->title }}</h1>
                     <p class="card-text">
-                        {!! Str::substr($post->content, 0, 150) !!}...
+                        {!! Str::substr($post->content, 0, 150) !!}
                     </p>
-                    <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                    <a href="{{route('post.single', ['slug' => $post->slug])}}" class="btn btn-primary">Read More &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
                     Posted on {{ $post->created_at->toFormattedDateString() }} |

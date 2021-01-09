@@ -13,39 +13,45 @@
      </div>
  </div>
 
+ <?php $categories = App\Models\Category::all()->take(4); ?>
+ <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+     @foreach ($categories as $category)
+         <a class="dropdown-item" href="">{{ $category->name }}</a>
+     @endforeach
+
+ </div>
+
  <!-- Categories Widget -->
  <div class="card my-4">
      <h5 class="card-header">Categories</h5>
      <div class="card-body">
          <div class="row">
-             <div class="col-lg-6">
-                 <ul class="list-unstyled mb-0">
-                     <li>
-                         <a href="#">Web Design</a>
-                     </li>
-                     <li>
-                         <a href="#">HTML</a>
-                     </li>
-                     <li>
-                         <a href="#">Freebies</a>
-                     </li>
-                 </ul>
-             </div>
-             <div class="col-lg-6">
-                 <ul class="list-unstyled mb-0">
-                     <li>
-                         <a href="#">JavaScript</a>
-                     </li>
-                     <li>
-                         <a href="#">CSS</a>
-                     </li>
-                     <li>
-                         <a href="#">Tutorials</a>
-                     </li>
-                 </ul>
-             </div>
+             <div class="col-lg-12">
+                 <div class="row list-unstyled mb-0">
+                     <?php $categories = App\Models\Category::all()->take(4); ?>
+
+                     @foreach ($categories as $category)
+                         <div class="col-md-6">
+                            <a class="" href="">{{ $category->name }}</a>
+                         </div>
+                     @endforeach
+             </ul>
          </div>
+         {{-- <div class="col-lg-6">
+             <ul class="list-unstyled mb-0">
+                 <li>
+                     <a href="#">JavaScript</a>
+                 </li>
+                 <li>
+                     <a href="#">CSS</a>
+                 </li>
+                 <li>
+                     <a href="#">Tutorials</a>
+                 </li>
+             </ul>
+         </div> --}}
      </div>
+ </div>
  </div>
 
  <!-- Side Widget -->

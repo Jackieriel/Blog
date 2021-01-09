@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'FrontendController@index')->name('index');
+Route::get('/post/{slug}', 'FrontendController@singlePost')->name('post.single');
 
 Auth::routes();
 

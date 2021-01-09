@@ -22,7 +22,7 @@
             <!-- Author -->
             <p class="lead">
                 by
-                <a href="">Jackieriel</a>
+                <a href="">{{$post->user->name}}</a>
             </p>
 
             <hr>
@@ -50,7 +50,7 @@
             <div class="widget w-tags">
                 <div class="tags-wrap">
                     @foreach ($post->tags as $tag)
-                        <a href="#" class="w-tags-item">{{ $tag->tag }}</a>
+                        <a href="{{route('tag.single', ['id' => $tag->id])}}" class="w-tags-item">{{ $tag->tag }}</a>
                     @endforeach
                 </div>
             </div>
@@ -79,33 +79,28 @@
             <div class="block pt-5">
                 <div class="row">
                     <div class=" col-md-2 mx-auto author-image">
-                        <img class="img-left" src="{{ asset('uploads/avatar/avater.jpg') }}" alt="Author">
+                        <img class="img-left rounded-circle" src="{{ asset($post->user->profile->avatar ) }}" alt="Author">
                     </div>
 
                     <div class="col-md-10">
                         <div class="blog-details-author-content">
                             <div class="author-info">
-                                <h5 class="author-name">Philip Demarco</h5>
-                                <p class="author-info">SEO Specialist</p>
+                                <h5 class="author-name">{{$post->user->name}}</h5>
+                                {{-- <p class="author-info">SEO Specialist</p> --}}
                             </div>
-                            <p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-                                nonummy nibh euismod.
+                            <p class="text">{{$post->user->profile->about}}
                             </p>
                             <div class="socials">
 
-                                <a href="#" class="social__item">
+                                <a href="{{$post->user->profile->facebook}}" class="social__item">
                                     <i class="fab fa-facebook"></i>
                                 </a>
 
-                                <a href="#" class="social__item">
+                                <a href="{{$post->user->profile->twitter}}" class="social__item">
                                     <i class="fab fa-twitter"></i>
                                 </a>
 
-                                <a href="#" class="social__item">
-                                    <i class="fab fa-google"></i>
-                                </a>
-
-                                <a href="#" class="social__item">
+                                <a href="{{$post->user->profile->youtube}}" target="_blank" class="social__item">
                                     <i class="fab fa-youtube"></i>
                                 </a>
 
@@ -161,6 +156,27 @@
 
                         </script>
                     </div>
+                </div>
+
+
+                <div class="col-lg-12">
+                    <aside aria-label="sidebar" class="sidebar sidebar-right">
+                        <div  class="widget w-tags">
+                            <div class="heading text-center">
+                                <h4 class="heading-title">TAGS</h4>
+                                <div class="heading-line">
+                                    <span class="short-line"></span>
+                                    <span class="long-line"></span>
+                                </div>
+                            </div>
+    
+                            <div class="tags-wrap">
+                                @foreach ($tags as $tag)
+                                <a href="{{route('tag.single', ['id' => $tag->id])}}" class="w-tags-item">{{$tag->tag}}</a>
+                                @endforeach                                
+                            </div>
+                        </div>
+                    </aside>
                 </div>
             </div>
 

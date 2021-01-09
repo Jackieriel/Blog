@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'FrontendController@index')->name('index');
 Route::get('/post/{slug}', 'FrontendController@singlePost')->name('post.single');
+Route::get('/category/{id}', 'FrontendController@category')->name('category.single');
+Route::get('/tag/{id}', 'FrontendController@tag')->name('tag.single');
+Route::get('/results', 'FrontendController@search')->name('post.search');
 
 Auth::routes();
 

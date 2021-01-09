@@ -79,6 +79,7 @@ class ProfileController extends Controller
             'twitter' => 'required|url',
             'facebook' => 'required|url',
             'youtube' => 'url',
+            'about' =>'required'
         ]);
 
         $user = Auth::user();

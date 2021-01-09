@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FrontendController@index')->name('index');
+Route::get('/post/{slug}', 'FrontendController@singlePost')->name('post.single');
+Route::get('/category/{id}', 'FrontendController@category')->name('category.single');
+Route::get('/tag/{id}', 'FrontendController@tag')->name('tag.single');
+Route::get('/results', 'FrontendController@search')->name('post.search');
 
 Auth::routes();
 
@@ -53,4 +56,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 
     Route::get('/users', 'UsersController@index')->name('users');
+    Route::get('/users/create', 'UsersController@create')->name('user.create');
+    Route::post('/users/save', 'UsersController@store')->name('user.save');
+
+    Route::get('/users/admin/{id}', 'UsersController@admin')->name('user.admin')->middleware('admin');
+    Route::get('/users/not-admin/{id}', 'UsersController@not_admin')->name('user.not-admin')->middleware('admin');
+
+    Route::get('/users/profile', 'ProfileController@edit')->name('user.profile');
+    Route::post('/users/profile/update', 'ProfileController@update')->name('user.profile.update');
+    Route::get('/users/delete/{id}', 'UsersController@destroy')->name('user.delete');
+
+    Route::get('/settings/edit', 'SettingController@index')->name('settings');
+    Route::post('/settings/update', 'SettingController@update')->name('settings.update');
 });

@@ -36,6 +36,13 @@ class User extends Authenticatable
           return $this->hasOne('App\Models\Profile');
       }
 
+
+// user relationship with post
+      public function post()
+      {
+          return $this->hasMany('App\Models\Post');
+      }
+
     /**
      * The attributes that should be cast to native types.
      *

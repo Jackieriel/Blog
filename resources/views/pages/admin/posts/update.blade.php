@@ -76,3 +76,27 @@
     </div>
 
 @endsection
+
+
+
+@section('styles')
+    {{--
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet"> --}}
+@endsection
+
+
+
+@section('scripts')
+
+    <script src="{{ asset('tinymc/tinymce.min.js') }}"></script>
+
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            menu: "false",
+            plugins: ["paste"],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+        });
+
+    </script>
+@endsection

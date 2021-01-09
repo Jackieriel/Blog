@@ -24,6 +24,9 @@
 
 
     <script src="https://kit.fontawesome.com/db163c922e.js" crossorigin="anonymous"></script>
+
+    @yield('styles')
+
 </head>
 
 <body>
@@ -58,6 +61,8 @@
     
     <x-notification />
     
+    @yield('scripts')
+
 </body>
 
 </html>

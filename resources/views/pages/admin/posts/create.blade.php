@@ -33,7 +33,7 @@
                 <select name="category_id" id="category" class="form-control">
                     <option value="" selected disabled>Select a category</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id}}">{{$category->name}}</option>
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -43,7 +43,7 @@
                 @foreach ($tags as $tag)
                     <div class="checkbox">
                         <label for="tags">
-                            <input type="checkbox" name="tags[]" value="{{$tag->id}}"> {{ $tag->tag }}
+                            <input type="checkbox" name="tags[]" value="{{ $tag->id }}"> {{ $tag->tag }}
                         </label>
                     </div>
                 @endforeach
@@ -51,7 +51,7 @@
 
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea name="content" id="content" cols="5" rows="5" class="form-control" required></textarea>
+                <textarea name="content" id="content" cols="5" rows="5" class="form-control" ></textarea>
             </div>
 
             <div class="form-group text-right">
@@ -62,4 +62,27 @@
 
     </div>
 
+@endsection
+
+
+@section('styles')
+    {{--
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet"> --}}
+@endsection
+
+
+
+@section('scripts')
+
+    <script src="{{ asset('tinymc/tinymce.min.js') }}"></script>
+
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            menu: "false",
+            plugins: ["paste"],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+        });
+
+    </script>
 @endsection

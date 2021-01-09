@@ -12,7 +12,7 @@ class Post extends Model
 
     // Editable fields
     protected $fillable = [
-        'title', 'content', 'category_id', 'featured','slug'
+        'title', 'content', 'category_id', 'featured','slug', 'user_id'
     ];
 
     // Accessor setup for feature images. manipulate before giving out from the db
@@ -34,6 +34,11 @@ class Post extends Model
     // Relationship with tags
     public function tags(){
         return $this->belongsToMany('App\Models\Tag');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }
  

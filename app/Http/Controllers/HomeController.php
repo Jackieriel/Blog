@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Post;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = User::where('id' , Auth::id())->firstOrFail();
+
+        return view('pages.admin.dashboard')->with('posts_count', Post::all()->count())
+        ->with('trashed_count', Post::onlyTrashed()->get()->count())
+        ->with('users_count', User::all()->count())
+        ->with('categories_count', Category::all()->count())
+        ->with('user', $user);
     }
 }
